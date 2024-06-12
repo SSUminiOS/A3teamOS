@@ -1,0 +1,9 @@
+services:
+    xv6:
+        platform: linux/amd64
+        image: ubuntu:22.04
+        container_name: xv6
+        stdin_open: true
+        tty: true
+        volumes:
+            - ./src:/home/ubuntu/src
