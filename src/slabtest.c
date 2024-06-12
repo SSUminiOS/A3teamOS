@@ -243,7 +243,6 @@ void slabtest(){
 	{
 		kmfree((char*) t[0][j], TESTSIZE2);
 	}
-	slabdump();
 	for (int j=0; j<8; j++)
 	{
 		kmfree((char*) t[0][j], TESTSIZE2);
@@ -278,7 +277,6 @@ void slabtest(){
 	for (int j=0; j<24; j++)
 	{
 		kmfree((char*) t[0][j], TESTSIZE2);
-		slabdump();
 	}
 	slabdump();
 }
