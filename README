@@ -1,48 +1,60 @@
-xv6 is a re-implementation of Dennis Ritchie's and Ken Thompson's Unix
-Version 6 (v6).  xv6 loosely follows the structure and style of v6,
-but is implemented for a modern x86-based multiprocessor using ANSI C.
+### linux환경에서 test를 하는 법
 
-ACKNOWLEDGMENTS
+1. 터미널에서 다음 명령어를 실행합니다.
+    
+    ```bash
+    git clone https://github.com/SSUminiOS/A3teamOS/tree/main 
+    ```
+    
+2. 터미널에서 makefile이 있는 디렉토리인 src에 접근을 합니다.
+    
+    ```bash
+    cd src
+    ```
+    
+3. 터미널에서 명령어로 make qemu-nox를 입력합니다.
+    
+    ```bash
+    make qemu-nox
+    ```
+    
+4. xv6를 실행 후 slabtest를 입력하여 출력 결과를 확인합니다.
+    
+    ```bash
+    slabtest
+    ```
+    
 
-xv6 is inspired by John Lions's Commentary on UNIX 6th Edition (Peer
-to Peer Communications; ISBN: 1-57398-013-7; 1st edition (June 14,
-2000)). See also https://pdos.csail.mit.edu/6.828/, which
-provides pointers to on-line resources for v6.
+### docker환경에서 test를 하는 법
 
-xv6 borrows code from the following sources:
-    JOS (asm.h, elf.h, mmu.h, bootasm.S, ide.c, console.c, and others)
-    Plan 9 (entryother.S, mp.h, mp.c, lapic.c)
-    FreeBSD (ioapic.c)
-    NetBSD (console.c)
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/59c44148-42ff-4519-bc90-b5b36d84abcb/033dbc13-afd8-4ad3-a580-798af2e64184/Untitled.png)
 
-The following people have made contributions: Russ Cox (context switching,
-locking), Cliff Frey (MP), Xiao Yu (MP), Nickolai Zeldovich, and Austin
-Clements.
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/59c44148-42ff-4519-bc90-b5b36d84abcb/7db482d9-f9f6-4378-bb77-f43acf0eaac4/Untitled.png)
 
-We are also grateful for the bug reports and patches contributed by Silas
-Boyd-Wickizer, Anton Burtsev, Cody Cutler, Mike CAT, Tej Chajed, eyalz800,
-Nelson Elhage, Saar Ettinger, Alice Ferrazzi, Nathaniel Filardo, Peter
-Froehlich, Yakir Goaron,Shivam Handa, Bryan Henry, Jim Huang, Alexander
-Kapshuk, Anders Kaseorg, kehao95, Wolfgang Keller, Eddie Kohler, Austin
-Liew, Imbar Marinescu, Yandong Mao, Matan Shabtay, Hitoshi Mitake, Carmi
-Merimovich, Mark Morrissey, mtasm, Joel Nider, Greg Price, Ayan Shafqat,
-Eldar Sehayek, Yongming Shen, Cam Tenny, tyfkda, Rafael Ubal, Warren
-Toomey, Stephen Tu, Pablo Ventura, Xi Wang, Keiichi Watanabe, Nicolas
-Wolovick, wxdao, Grant Wu, Jindong Zhang, Icenowy Zheng, and Zou Chang Wei.
+git clone 이후, vscode에서 docker-compose 파일을 실행 `docker compose up -d`
 
-The code in the files that constitute xv6 is
-Copyright 2006-2018 Frans Kaashoek, Robert Morris, and Russ Cox.
+그리고 vscode 좌하단에 ><를 클릭하여 실행 중인 컨테이너에 연결을 누르고 /xv6에 연결
 
-ERROR REPORTS
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/59c44148-42ff-4519-bc90-b5b36d84abcb/54dff19d-6968-492c-a8e7-94fcef91ee06/Untitled.png)
 
-We switched our focus to xv6 on RISC-V; see the mit-pdos/xv6-riscv.git
-repository on github.com.
+다음 vscode 파일 열기를 통해 `/home/ubuntu/src`경로에 접속
 
-BUILDING AND RUNNING XV6
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/59c44148-42ff-4519-bc90-b5b36d84abcb/97b005c3-c8da-4135-bc8c-ee554884d1b5/Untitled.png)
 
-To build xv6 on an x86 ELF machine (like Linux or FreeBSD), run
-"make". On non-x86 or non-ELF machines (like OS X, even on x86), you
-will need to install a cross-compiler gcc suite capable of producing
-x86 ELF binaries (see https://pdos.csail.mit.edu/6.828/).
-Then run "make TOOLPREFIX=i386-jos-elf-". Now install the QEMU PC
-simulator and run "make qemu".
+`apt-update` 명령어 실행
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/59c44148-42ff-4519-bc90-b5b36d84abcb/669ed7b5-d216-4471-931b-a6c6af04b0a8/Untitled.png)
+
+`apt-get install -y build-essential qemu gcc-multilib qemu-system-x86` 명령어 실행
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/59c44148-42ff-4519-bc90-b5b36d84abcb/146531df-a8f9-4a64-aed9-13a6e1b2bf06/Untitled.png)
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/59c44148-42ff-4519-bc90-b5b36d84abcb/fe1db594-1fe7-4d95-9747-b1ea6453f037/Untitled.png)
+
+`make qemu-nox로 build`하고 `slabtest` 실행 시 테스트 결과 확인 가능
+
+### 만약 make qemu-nox에서 `make: *** No rule to make target gnu/9/include/stdbool.h', needed by 'slab.o'.  Stop.` 오류가 발생한 경우
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/59c44148-42ff-4519-bc90-b5b36d84abcb/ac5df945-5985-4f05-b748-a088eadbbea2/Untitled.png)
+
+`apt install build-essential` 명령어 실행
